@@ -20,7 +20,7 @@ export function TargetSection() {
             Help Us Build a Strong Volunteer Team
           </h2>
           
-          <div className="inline-flex flex-col items-center justify-center p-8 rounded-3xl bg-black/20 backdrop-blur-md border border-white/10 shadow-2xl">
+          <div className="inline-flex flex-col items-center justify-center p-8 rounded-3xl bg-white/50 backdrop-blur-md border border-black/10 shadow-2xl">
             <span className="text-6xl md:text-8xl font-black tracking-tighter mb-2">
               {siteConfig.targetVolunteers}+
             </span>

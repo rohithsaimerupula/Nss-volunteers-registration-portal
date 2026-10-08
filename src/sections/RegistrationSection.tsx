@@ -102,7 +102,7 @@ export function RegistrationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="bg-background border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden"
+          className="bg-background border border-black/10 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden"
         >
           {/* Subtle background glow in the form card */}
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
@@ -123,19 +123,19 @@ export function RegistrationSection() {
                 <p className="text-xl text-muted-foreground mb-8">
                   Thank you for stepping forward to serve with NSS.
                 </p>
-                <div className="bg-surface border border-white/10 rounded-xl p-6 mb-8 w-full max-w-md">
+                <div className="bg-surface border border-black/10 rounded-xl p-6 mb-8 w-full max-w-md">
                   <p className="text-sm text-muted-foreground uppercase tracking-widest mb-1">Registration Status</p>
                   <p className="text-lg font-bold text-primary mb-4">Successful</p>
                   {registrationId && (
                     <>
                       <p className="text-sm text-muted-foreground uppercase tracking-widest mb-1">Registration ID</p>
-                      <p className="font-mono text-xl text-foreground bg-black/30 py-2 rounded-lg">{registrationId}</p>
+                      <p className="font-mono text-xl text-foreground bg-slate-100 py-2 rounded-lg">{registrationId}</p>
                     </>
                   )}
                 </div>
                 <button
                   onClick={handleReset}
-                  className="px-8 py-3 rounded-full bg-surface text-foreground font-semibold hover:bg-surface/80 border border-white/10 transition-all"
+                  className="px-8 py-3 rounded-full bg-surface text-foreground font-semibold hover:bg-surface/80 border border-black/10 transition-all"
                 >
                   Register Another Volunteer
                 </button>
@@ -165,13 +165,13 @@ export function RegistrationSection() {
 
                 {/* Section 1: Personal Info */}
                 <div>
-                  <h3 className="text-xl font-bold mb-4 pb-2 border-b border-white/10 text-foreground">Personal Information</h3>
+                  <h3 className="text-xl font-bold mb-4 pb-2 border-b border-black/10 text-foreground">Personal Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-medium text-foreground/80">Full Name <span className="text-red-500">*</span></label>
                       <input
                         {...register("fullName")}
-                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.fullName ? "border-red-500" : "border-white/10")}
+                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.fullName ? "border-red-500" : "border-black/10")}
                         placeholder="John Doe"
                       />
                       {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName.message}</p>}
@@ -180,7 +180,7 @@ export function RegistrationSection() {
                       <label className="text-sm font-medium text-foreground/80">Roll Number <span className="text-red-500">*</span></label>
                       <input
                         {...register("rollNumber")}
-                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground uppercase", errors.rollNumber ? "border-red-500" : "border-white/10")}
+                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground uppercase", errors.rollNumber ? "border-red-500" : "border-black/10")}
                         placeholder="e.g. 21L31A0500"
                       />
                       {errors.rollNumber && <p className="text-red-500 text-xs mt-1">{errors.rollNumber.message}</p>}
@@ -190,7 +190,7 @@ export function RegistrationSection() {
                       <input
                         type="email"
                         {...register("email")}
-                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.email ? "border-red-500" : "border-white/10")}
+                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.email ? "border-red-500" : "border-black/10")}
                         placeholder="student@viit.ac.in"
                       />
                       {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
@@ -199,7 +199,7 @@ export function RegistrationSection() {
                       <label className="text-sm font-medium text-foreground/80">Mobile Number <span className="text-red-500">*</span></label>
                       <input
                         {...register("phone")}
-                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.phone ? "border-red-500" : "border-white/10")}
+                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.phone ? "border-red-500" : "border-black/10")}
                         placeholder="9876543210"
                       />
                       {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
@@ -209,13 +209,13 @@ export function RegistrationSection() {
 
                 {/* Section 2: Academic Info */}
                 <div>
-                  <h3 className="text-xl font-bold mb-4 pb-2 border-b border-white/10 text-foreground">Academic Information</h3>
+                  <h3 className="text-xl font-bold mb-4 pb-2 border-b border-black/10 text-foreground">Academic Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-medium text-foreground/80">Program / Degree <span className="text-red-500">*</span></label>
                       <input
                         {...register("program")}
-                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.program ? "border-red-500" : "border-white/10")}
+                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.program ? "border-red-500" : "border-black/10")}
                         placeholder="B.Tech, MBA, etc."
                       />
                       {errors.program && <p className="text-red-500 text-xs mt-1">{errors.program.message}</p>}
@@ -224,7 +224,7 @@ export function RegistrationSection() {
                       <label className="text-sm font-medium text-foreground/80">Department / Branch <span className="text-red-500">*</span></label>
                       <input
                         {...register("department")}
-                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.department ? "border-red-500" : "border-white/10")}
+                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground", errors.department ? "border-red-500" : "border-black/10")}
                         placeholder="CSE, ECE, IT, etc."
                       />
                       {errors.department && <p className="text-red-500 text-xs mt-1">{errors.department.message}</p>}
@@ -233,7 +233,7 @@ export function RegistrationSection() {
                       <label className="text-sm font-medium text-foreground/80">Year <span className="text-red-500">*</span></label>
                       <select
                         {...register("year")}
-                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground appearance-none", errors.year ? "border-red-500" : "border-white/10")}
+                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground appearance-none", errors.year ? "border-red-500" : "border-black/10")}
                       >
                         <option value="">Select Year</option>
                         <option value="1">1st Year</option>
@@ -247,7 +247,7 @@ export function RegistrationSection() {
                       <label className="text-sm font-medium text-foreground/80">Section (Optional)</label>
                       <input
                         {...register("section")}
-                        className="w-full px-4 py-3 rounded-xl bg-surface border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground"
+                        className="w-full px-4 py-3 rounded-xl bg-surface border border-black/10 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground"
                         placeholder="A, B, C, etc."
                       />
                     </div>
@@ -270,13 +270,13 @@ export function RegistrationSection() {
 
                 {/* Section 3: Volunteer Info */}
                 <div>
-                  <h3 className="text-xl font-bold mb-4 pb-2 border-b border-white/10 text-foreground">Volunteer Information</h3>
+                  <h3 className="text-xl font-bold mb-4 pb-2 border-b border-black/10 text-foreground">Volunteer Information</h3>
                   <div className="space-y-6">
                     <div className="space-y-3">
                       <label className="text-sm font-medium text-foreground/80">Areas of Interest <span className="text-red-500">*</span></label>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {interestsList.map((interest) => (
-                          <label key={interest} className={cn("flex items-center p-3 rounded-xl border cursor-pointer transition-all", selectedInterests.includes(interest) ? "border-primary bg-primary/10" : "border-white/10 bg-surface hover:bg-surface/80")}>
+                          <label key={interest} className={cn("flex items-center p-3 rounded-xl border cursor-pointer transition-all", selectedInterests.includes(interest) ? "border-primary bg-primary/10" : "border-black/10 bg-surface hover:bg-surface/80")}>
                             <input
                               type="checkbox"
                               value={interest}
@@ -294,7 +294,7 @@ export function RegistrationSection() {
                       <label className="text-sm font-medium text-foreground/80">Previous Volunteering Experience (Optional)</label>
                       <textarea
                         {...register("previousExperience")}
-                        className="w-full px-4 py-3 rounded-xl bg-surface border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground min-h-[80px]"
+                        className="w-full px-4 py-3 rounded-xl bg-surface border border-black/10 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground min-h-[80px]"
                         placeholder="Briefly describe any past volunteering work..."
                       />
                     </div>
@@ -303,7 +303,7 @@ export function RegistrationSection() {
                       <label className="text-sm font-medium text-foreground/80">Why do you want to join NSS? <span className="text-red-500">*</span></label>
                       <textarea
                         {...register("motivation")}
-                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground min-h-[100px]", errors.motivation ? "border-red-500" : "border-white/10")}
+                        className={cn("w-full px-4 py-3 rounded-xl bg-surface border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-foreground min-h-[100px]", errors.motivation ? "border-red-500" : "border-black/10")}
                         placeholder="Share your motivation..."
                       />
                       {errors.motivation && <p className="text-red-500 text-xs mt-1">{errors.motivation.message}</p>}
@@ -312,13 +312,13 @@ export function RegistrationSection() {
                 </div>
 
                 {/* Section 4: Consent */}
-                <div className="pt-4 border-t border-white/10">
+                <div className="pt-4 border-t border-black/10">
                   <label className="flex items-start gap-3 cursor-pointer group">
                     <div className="relative flex items-center justify-center mt-1">
                       <input
                         type="checkbox"
                         {...register("consent")}
-                        className="peer appearance-none w-5 h-5 border border-white/20 rounded cursor-pointer checked:bg-primary checked:border-primary transition-all"
+                        className="peer appearance-none w-5 h-5 border border-black/20 rounded cursor-pointer checked:bg-primary checked:border-primary transition-all"
                       />
                       <CheckCircle2 size={14} className="absolute text-background opacity-0 peer-checked:opacity-100 pointer-events-none" />
                     </div>

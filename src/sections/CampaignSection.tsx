@@ -25,7 +25,7 @@ export function CampaignSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-surface border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden"
+          className="bg-surface border border-black/10 rounded-3xl p-8 md:p-12 relative overflow-hidden"
         >
           {/* Subtle glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-32 bg-primary/20 blur-[80px] pointer-events-none" />
@@ -47,7 +47,7 @@ export function CampaignSection() {
                 <div className="text-primary font-mono font-bold text-lg">
                   DAY {item.day}
                 </div>
-                <div className="h-0.5 w-full bg-white/10 relative">
+                <div className="h-0.5 w-full bg-black/5 relative">
                   <div className="absolute top-0 left-0 h-full w-0 bg-primary group-hover:w-full transition-all duration-500" />
                   {/* Small dot */}
                   <div className="absolute top-1/2 left-0 -translate-y-1/2 w-2 h-2 rounded-full bg-primary" />

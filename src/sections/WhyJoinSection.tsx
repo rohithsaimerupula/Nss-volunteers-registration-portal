@@ -86,7 +86,7 @@ export function WhyJoinSection() {
             <motion.div 
               key={index} 
               variants={itemVariants}
-              className="group relative bg-surface border border-white/5 p-8 rounded-2xl hover:border-primary/50 hover:bg-surface/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(22,163,74,0.1)]"
+              className="group relative bg-surface border border-black/5 p-8 rounded-2xl hover:border-primary/50 hover:bg-surface/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(22,163,74,0.1)]"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                 {reason.icon}

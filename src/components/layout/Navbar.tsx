@@ -30,7 +30,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-white/5 py-4 shadow-sm"
+          ? "bg-background/80 backdrop-blur-md border-black/5 py-4 shadow-sm"
           : "bg-transparent py-6"
       )}
     >
@@ -91,7 +91,7 @@ export function Navbar() {
       {/* Mobile Navigation Dropdown */}
       <div
         className={cn(
-          "md:hidden absolute top-full left-0 right-0 bg-surface/95 backdrop-blur-xl border-b border-white/5 transition-all duration-300 overflow-hidden",
+          "md:hidden absolute top-full left-0 right-0 bg-surface/95 backdrop-blur-xl border-b border-black/5 transition-all duration-300 overflow-hidden",
           mobileMenuOpen ? "max-h-[400px] py-4" : "max-h-0 py-0 border-transparent"
         )}
       >
@@ -109,7 +109,7 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <div className="pt-4 border-t border-white/10">
+          <div className="pt-4 border-t border-black/10">
             <Link
               href="#register"
               onClick={() => setMobileMenuOpen(false)}

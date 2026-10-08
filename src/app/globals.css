@@ -34,35 +34,30 @@
 }
 
 :root {
-  /* Using a dark theme for premium/cinematic feel */
-  --background: #060906; 
-  --foreground: #f4f4f5;
-  --surface: #0f1610; 
-  --primary: #16a34a; 
+  /* Bright, premium institutional theme */
+  --background: #ffffff; 
+  --foreground: #09090b;
+  --surface: #f8fafc; 
+  --primary: #15803d; /* Deeper forest green */
   --primary-foreground: #ffffff;
-  --accent: #bef264;
+  --accent: #22c55e;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Utilities for Glassmorphism and Effects */
+/* Custom Utilities */
 .glass {
-  background: rgba(15, 22, 16, 0.4);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Typography styles */
-h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.02em;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* Smooth Scrolling */
