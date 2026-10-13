@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { CampaignWordmark, TripleIdentityGroup } from "@/components/branding/BrandIdentity";
+import { TripleIdentityGroup } from "@/components/branding/BrandIdentity";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);

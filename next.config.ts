@@ -1,13 +1,12 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
+    root: path.resolve(__dirname),
+  },
+  typescript: {
+    ignoreBuildErrors: false,
   },
   async headers() {
     return [

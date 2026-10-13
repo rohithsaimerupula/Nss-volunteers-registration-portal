@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   registrationSchema,
-  stepOneSchema,
   type RegistrationData,
 } from "@/lib/validations";
 import {
@@ -15,7 +14,6 @@ import {
   ArrowRight,
   ArrowLeft,
   ShieldCheck,
-  Award,
 } from "lucide-react";
 
 const availableInterests = [

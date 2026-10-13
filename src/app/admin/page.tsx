@@ -5,12 +5,7 @@ import Link from "next/link";
 import {
   Lock,
   Search,
-  Download,
   LogOut,
-  RefreshCw,
-  Users,
-  Target,
-  ChevronRight,
   X,
   FileSpreadsheet,
   AlertCircle,
@@ -146,6 +141,7 @@ export default function AdminPage() {
   };
 
   const handleExportCsv = () => {
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     window.location.href = "/api/admin/export";
   };
 

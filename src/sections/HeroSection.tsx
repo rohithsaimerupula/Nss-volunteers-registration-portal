@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Sparkles, Shield, CheckCircle2, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Sparkles } from "lucide-react";
 import { TriadCenterpiece } from "@/components/interactive/TriadCenterpiece";
 
 export function HeroSection() {

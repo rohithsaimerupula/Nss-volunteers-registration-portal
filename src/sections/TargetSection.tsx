@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, Target, Users } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Target } from "lucide-react";
 
 interface StatsData {
   connected: boolean;

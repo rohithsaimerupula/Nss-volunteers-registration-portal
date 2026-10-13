@@ -88,7 +88,6 @@ export function WhyJoinSection() {
           {/* Right Sequential Benefits Column (8 cols) */}
           <div className="lg:col-span-8 flex flex-col divide-y divide-forest/15">
             {benefits.map((benefit) => {
-              const Icon = benefit.icon;
               return (
                 <div key={benefit.numeral} className="py-8 first:pt-0 last:pb-0">
                   <div className="flex items-start gap-4 sm:gap-6">

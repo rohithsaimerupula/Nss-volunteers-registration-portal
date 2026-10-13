@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Sparkles, Shield, CheckCircle2, ExternalLink } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export function TriadCenterpiece() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -16,8 +16,6 @@ export function TriadCenterpiece() {
   const springConfig = { damping: 25, stiffness: 120 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), springConfig);
-  const lightX = useTransform(mouseX, [-0.5, 0.5], ["30%", "70%"]);
-  const lightY = useTransform(mouseY, [-0.5, 0.5], ["30%", "70%"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
