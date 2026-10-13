@@ -1,12 +1,21 @@
 export const siteConfig = {
-  name: "NSS Volunteer Drive",
-  institution: "Vignan's Institute of Information Technology",
-  description: "Join the NSS volunteer drive and contribute to meaningful community service initiatives.",
+  name: "NSS SETU",
+  title: "NSS Volunteer Recruitment Drive | Vignan's Institute of Information Technology",
+  institution: "Vignan's Institute of Information Technology (VIIT)",
+  subtitle: "Three Identities. One Mission.",
+  campaignConcept: "Representing the connection between VIIT, NSS, and MY BHARAT.",
+  primaryMessage: "Be the Change. Serve the Nation.",
+  primaryAction: "Become a Volunteer",
   targetVolunteers: 100,
-  campaignDurationDays: 10,
-  contactEmail: "nss@viit.ac.in",
-  brand: {
-    primaryTitle: "Be the Change. Serve the Nation.",
-    subTitle: "Join the NSS volunteer movement at Vignan's Institute of Information Technology and make a meaningful impact in your community.",
-  }
+  contact: {
+    institutionName: "Vignan's Institute of Information Technology (Autonomous)",
+    address: "Beside VSEZ, Vadlapudi Post, Gajuwaka, Visakhapatnam, Andhra Pradesh — 530049",
+    email: "nss@viit.ac.in",
+  },
+  navLinks: [
+    { href: "#home", label: "Home" },
+    { href: "#about", label: "About" },
+    { href: "#activities", label: "Activities" },
+    { href: "#why-join", label: "Why Join" },
+  ],
 };

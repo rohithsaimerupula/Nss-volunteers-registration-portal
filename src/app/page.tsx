@@ -1,35 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { NssIntroAnimation } from "@/components/layout/NssIntroAnimation";
 import { HeroSection } from "@/sections/HeroSection";
 import { AboutSection } from "@/sections/AboutSection";
-import { WhyJoinSection } from "@/sections/WhyJoinSection";
 import { ActivitiesSection } from "@/sections/ActivitiesSection";
-import { CampaignSection } from "@/sections/CampaignSection";
+import { WhyJoinSection } from "@/sections/WhyJoinSection";
 import { TargetSection } from "@/sections/TargetSection";
 import { RegistrationSection } from "@/sections/RegistrationSection";
-import { SplashScreen } from "@/components/layout/SplashScreen";
-import { motion } from "framer-motion";
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showIntro, setShowIntro] = useState(true);
 
   return (
     <>
-      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
-      
+      {/* Super Impressive Full-Screen NSS Logo Cinematic Intro */}
+      <AnimatePresence mode="wait">
+        {showIntro && (
+          <NssIntroAnimation onComplete={() => setShowIntro(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* Main Campaign Website */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: showSplash ? 0 : 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className={showSplash ? "h-screen overflow-hidden pointer-events-none" : ""}
+        initial={{ opacity: 0, filter: "blur(6px)" }}
+        animate={{
+          opacity: showIntro ? 0 : 1,
+          filter: showIntro ? "blur(6px)" : "blur(0px)",
+        }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={showIntro ? "h-screen overflow-hidden pointer-events-none" : ""}
       >
+        {/* SECTION B — HERO */}
         <HeroSection />
+
+        {/* SECTION C — ABOUT NSS */}
         <AboutSection />
-        <WhyJoinSection />
+
+        {/* SECTION D — ACTIVITIES */}
         <ActivitiesSection />
-        <CampaignSection />
+
+        {/* SECTION E — WHY JOIN */}
+        <WhyJoinSection />
+
+        {/* SECTION F — VOLUNTEER TARGET */}
         <TargetSection />
+
+        {/* SECTION G — REGISTRATION */}
         <RegistrationSection />
       </motion.div>
     </>

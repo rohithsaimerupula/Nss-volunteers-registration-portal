@@ -1,24 +1,28 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
-const inter = Inter({
-  variable: "--font-inter",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "NSS Volunteer Drive | Vignan's Institute of Information Technology",
-  description: "Join the NSS volunteer drive at Vignan's Institute of Information Technology and contribute to meaningful community service initiatives.",
+  title: "NSS SETU — Volunteer Recruitment Campaign | VIIT",
+  description: "Official NSS volunteer recruitment drive for Vignan's Institute of Information Technology (Autonomous). Three Identities. One Mission. Be the Change. Serve the Nation.",
+  keywords: ["NSS", "VIIT", "MY BHARAT", "NSS SETU", "Volunteer Recruitment", "Community Service", "Vignan"],
   openGraph: {
-    title: "NSS Volunteer Drive | VIIT",
-    description: "Join the NSS volunteer movement and make a meaningful impact.",
+    title: "NSS SETU — Volunteer Recruitment Campaign | VIIT",
+    description: "Be the Change. Serve the Nation. Join the NSS volunteer movement at Vignan's Institute of Information Technology.",
     type: "website",
   },
 };
@@ -31,16 +35,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${playfair.variable} ${jakarta.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-body bg-ivory text-charcoal selection:bg-forest selection:text-ivory">
         <Navbar />
         <main className="flex-grow">{children}</main>
-        <footer className="py-8 border-t border-black/10 bg-surface/50 text-center">
-          <p className="text-sm text-muted-foreground">
-            &copy; 2026 Vignan's Institute of Information Technology. NSS Volunteer Campaign.
-          </p>
-        </footer>
+        <Footer />
       </body>
     </html>
   );

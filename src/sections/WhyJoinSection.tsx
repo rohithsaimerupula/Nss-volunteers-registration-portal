@@ -1,103 +1,121 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Heart, BookOpen, UserCheck, Users, Calendar, Target } from "lucide-react";
+import React from "react";
+import Link from "next/link";
+import { ArrowUpRight, Compass, Award, HandHeart } from "lucide-react";
 
-const reasons = [
+const benefits = [
   {
-    icon: <Heart className="w-8 h-8" />,
-    title: "Serve",
-    description: "Contribute your time and skills to meaningful community initiatives."
+    numeral: "I",
+    title: "Develop leadership and teamwork.",
+    tagline: "Character under responsibility",
+    description:
+      "Step into real-world leadership outside academic theory. Organising civic campaigns, coordinating peer cohorts, and steering on-ground initiatives instills emotional intelligence, decisive problem solving, and collaborative accountability that distinguish you throughout your professional career.",
+    icon: Compass,
   },
   {
-    icon: <BookOpen className="w-8 h-8" />,
-    title: "Learn",
-    description: "Develop leadership, communication, teamwork, and organizational skills."
+    numeral: "II",
+    title: "Learn through practical community engagement.",
+    tagline: "Experiential education beyond the classroom",
+    description:
+      "Gain direct exposure to social realities across neighboring rural and urban communities. Working alongside grassroots stakeholders sharpens your situational awareness, cultural perspective, and ability to build pragmatic solutions with limited resources.",
+    icon: Award,
   },
   {
-    icon: <UserCheck className="w-8 h-8" />,
-    title: "Lead",
-    description: "Take responsibility and work with students and coordinators to create impact."
+    numeral: "III",
+    title: "Contribute to meaningful social initiatives.",
+    tagline: "Tangible, lasting community impact",
+    description:
+      "Transform goodwill into systematic public welfare. Whether restoring local green cover, mobilizing vital blood donations, or educating first-generation learners, your service creates lasting, measurable benefits for society while cementing a lifelong commitment to national progress.",
+    icon: HandHeart,
   },
-  {
-    icon: <Users className="w-8 h-8" />,
-    title: "Connect",
-    description: "Meet people, collaborate with teams, and become part of a larger service community."
-  },
-  {
-    icon: <Calendar className="w-8 h-8" />,
-    title: "Experience",
-    description: "Participate in campaigns, awareness programs, events, and community activities."
-  },
-  {
-    icon: <Target className="w-8 h-8" />,
-    title: "Impact",
-    description: "Turn your effort into meaningful action that benefits society."
-  }
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-};
 
 export function WhyJoinSection() {
   return (
-    <section id="why-join" className="py-24 relative bg-background">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-black mb-4"
+    <section
+      id="why-join"
+      className="py-20 md:py-28 bg-white border-b border-forest/10"
+      aria-labelledby="why-join-heading"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="max-w-3xl mb-16">
+          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-gold font-semibold mb-3">
+            <span>SECTION 04</span>
+            <span className="w-4 h-px bg-gold" aria-hidden="true" />
+            <span>VALUE &amp; GROWTH</span>
+          </div>
+
+          <h2
+            id="why-join-heading"
+            className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-forest mb-4 leading-tight"
           >
-            Why Become an NSS Volunteer?
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
-          >
-            Join a community of changemakers and develop yourself while serving others.
-          </motion.p>
+            Grow Through Service.
+          </h2>
+
+          <p className="text-base sm:text-lg text-charcoal/80 leading-relaxed font-normal">
+            Volunteering with the National Service Scheme is an investment in your personal character and ethical leadership. Here are the three pillars of student growth.
+          </p>
         </div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {reasons.map((reason, index) => (
-            <motion.div 
-              key={index} 
-              variants={itemVariants}
-              className="group relative bg-surface border border-black/5 p-8 rounded-2xl hover:border-primary/50 hover:bg-surface/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(22,163,74,0.1)]"
-            >
-              <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                {reason.icon}
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-foreground">{reason.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {reason.description}
+        {/* Editorial Layout: Distinct Split/Row Structure (Not a repetitive grid) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Sticky Manifesto Column (4 cols) */}
+          <div className="lg:col-span-4 lg:sticky lg:top-28">
+            <div className="p-8 bg-ivory border border-forest/15 rounded-sm">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-gold font-bold block mb-3">
+                THE VOLUNTEER PLEDGE
+              </span>
+              <blockquote className="font-editorial text-xl sm:text-2xl text-forest font-bold leading-snug mb-6">
+                &ldquo;He who serves his fellows is of all the greatest.&rdquo;
+              </blockquote>
+              <p className="text-xs text-charcoal/75 leading-relaxed mb-6">
+                Joining NSS is not simply adding an extracurricular credential; it is a conscious commitment to national progress, selfless brotherhood, and responsible citizenship.
               </p>
-            </motion.div>
-          ))}
-        </motion.div>
+              <div className="pt-6 border-t border-forest/10">
+                <Link
+                  href="#register"
+                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-forest hover:text-forest-light transition-colors"
+                >
+                  <span>Step forward today</span>
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Sequential Benefits Column (8 cols) */}
+          <div className="lg:col-span-8 flex flex-col divide-y divide-forest/15">
+            {benefits.map((benefit) => {
+              const Icon = benefit.icon;
+              return (
+                <div key={benefit.numeral} className="py-8 first:pt-0 last:pb-0">
+                  <div className="flex items-start gap-4 sm:gap-6">
+                    {/* Roman Numeral Accent */}
+                    <div className="shrink-0 w-12 h-12 bg-ivory border border-forest/15 flex items-center justify-center font-editorial font-bold text-forest text-lg">
+                      {benefit.numeral}
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="text-[11px] font-mono uppercase tracking-widest text-gold font-semibold mb-1">
+                        {benefit.tagline}
+                      </div>
+
+                      <h3 className="font-editorial text-xl sm:text-2xl font-bold text-forest mb-3">
+                        {benefit.title}
+                      </h3>
+
+                      <p className="text-sm sm:text-base text-charcoal/80 leading-relaxed font-normal">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
