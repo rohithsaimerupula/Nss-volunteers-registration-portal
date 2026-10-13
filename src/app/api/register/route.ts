@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import { turso } from "@/lib/turso";
+import { turso, isTursoConfigured } from "@/lib/turso";
 import { registrationSchema } from "@/lib/validations";
 import { headers } from "next/headers";
-
-export const dynamic = "force-dynamic";
 
 // Simple in-memory rate limiting: 5 attempts per IP per minute
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
@@ -64,11 +62,7 @@ export async function POST(request: Request) {
 
     const data = parsed.data;
 
-    const isTursoConfigured =
-      process.env.TURSO_DATABASE_URL &&
-      process.env.TURSO_DATABASE_URL !== "libsql://placeholder-project.turso.io";
-
-    if (!isTursoConfigured) {
+    if (!isTursoConfigured()) {
       return NextResponse.json(
         {
           error: "Database configuration unavailable. Please contact the administrator.",

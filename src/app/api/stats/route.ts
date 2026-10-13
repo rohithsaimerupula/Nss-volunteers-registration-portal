@@ -1,15 +1,11 @@
 import { NextResponse } from "next/server";
-import { turso } from "@/lib/turso";
+import { turso, isTursoConfigured } from "@/lib/turso";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const isTursoConfigured =
-      process.env.TURSO_DATABASE_URL &&
-      process.env.TURSO_DATABASE_URL !== "libsql://placeholder-project.turso.io";
-
-    if (!isTursoConfigured) {
+    if (!isTursoConfigured()) {
       return NextResponse.json({
         connected: false,
         count: null,

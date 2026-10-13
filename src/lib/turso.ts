@@ -1,53 +1,51 @@
 import { createClient, type Client } from "@libsql/client";
 
-function createSafeTursoClient(): Client {
-  const envUrl = process.env.TURSO_DATABASE_URL?.trim();
-  const envToken = process.env.TURSO_AUTH_TOKEN?.trim();
-
-  // If a valid remote or file URL is provided, attempt connection
-  if (
-    envUrl &&
-    (envUrl.startsWith("libsql://") ||
-      envUrl.startsWith("https://") ||
-      envUrl.startsWith("http://") ||
-      envUrl.startsWith("file:"))
-  ) {
-    try {
-      return createClient({
-        url: envUrl,
-        authToken: envToken || undefined,
-      });
-    } catch (err) {
-      console.warn("Turso remote client init failed, falling back to local fallback:", err);
-    }
+function sanitizeTursoUrl(raw?: string | null): string {
+  if (!raw) return "file:local.db";
+  let cleaned = String(raw).trim().replace(/^["']|["']$/g, "");
+  if (!cleaned || cleaned === "libsql://placeholder-project.turso.io") {
+    return "file:local.db";
   }
-
-  // Safe fallback for build time and local demo environments
-  // Ensures createClient never throws TypeError: Invalid URL during Next.js page collection
+  // Auto-prefix protocol if missing
+  if (!cleaned.includes("://") && !cleaned.startsWith("file:")) {
+    cleaned = `libsql://${cleaned}`;
+  }
   try {
+    new URL(cleaned);
+    return cleaned;
+  } catch {
+    return "file:local.db";
+  }
+}
+
+const rawUrl = process.env.TURSO_DATABASE_URL;
+const rawToken = process.env.TURSO_AUTH_TOKEN;
+
+const databaseUrl = sanitizeTursoUrl(rawUrl);
+const authToken = rawToken ? String(rawToken).trim().replace(/^["']|["']$/g, "") : undefined;
+
+export function isTursoConfigured(): boolean {
+  if (!rawUrl || !rawToken) return false;
+  const sanitized = sanitizeTursoUrl(rawUrl);
+  return (
+    sanitized !== "file:local.db" &&
+    sanitized !== "libsql://placeholder-project.turso.io" &&
+    Boolean(authToken)
+  );
+}
+
+function initClient(): Client {
+  try {
+    return createClient({
+      url: databaseUrl,
+      authToken,
+    });
+  } catch (error) {
+    console.warn("Failed to initialize remote Turso client, falling back to local file client:", error);
     return createClient({
       url: "file:local.db",
     });
-  } catch {
-    // Return mock client if file client is unavailable in edge environment
-    return {
-      execute: async () => ({ rows: [], columns: [] }),
-      batch: async () => [],
-      transaction: async () => ({} as any),
-      close: () => {},
-      sync: async () => {},
-    } as unknown as Client;
   }
 }
 
-export const turso: Client = createSafeTursoClient();
-
-export function isTursoConfigured(): boolean {
-  const envUrl = process.env.TURSO_DATABASE_URL?.trim();
-  const envToken = process.env.TURSO_AUTH_TOKEN?.trim();
-  return Boolean(
-    envUrl &&
-    envToken &&
-    (envUrl.startsWith("libsql://") || envUrl.startsWith("https://"))
-  );
-}
+export const turso: Client = initClient();
