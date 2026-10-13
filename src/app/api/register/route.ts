@@ -3,6 +3,8 @@ import { turso } from "@/lib/turso";
 import { registrationSchema } from "@/lib/validations";
 import { headers } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 // Simple in-memory rate limiting: 5 attempts per IP per minute
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
 const RATE_LIMIT_WINDOW_MS = 60000;
