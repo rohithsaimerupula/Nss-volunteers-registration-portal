@@ -59,14 +59,6 @@ export function Footer() {
                   Volunteer Registration
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/admin"
-                  className="text-ivory/50 hover:text-ivory transition-colors inline-block"
-                >
-                  Administrator Portal
-                </Link>
-              </li>
             </ul>
           </div>
 
