@@ -146,7 +146,7 @@ export function TargetSection() {
                 >
                   <div
                     className="h-full bg-forest transition-all duration-700 ease-out"
-                    style={{ width: `${Math.max(4, percentage)}%` }}
+                    style={{ width: `${count > 0 ? Math.max(3, percentage) : 0}%` }}
                   />
                 </div>
               </div>
