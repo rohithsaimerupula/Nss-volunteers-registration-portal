@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -14,7 +14,12 @@ import {
   ArrowRight,
   ArrowLeft,
   ShieldCheck,
+  Search,
+  Printer,
+  Sparkles,
 } from "lucide-react";
+import { RegistrationSlip, type VolunteerSlipData } from "@/components/printable/RegistrationSlip";
+import { StatusLookupModal } from "@/components/interactive/StatusLookupModal";
 
 const availableInterests = [
   "Community Service & Village Adoption",
@@ -34,12 +39,28 @@ export function RegistrationSection() {
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
-  const [confirmedData, setConfirmedData] = useState<{
-    registrationId: string;
-    fullName: string;
-    rollNumber: string;
-    department: string;
-  } | null>(null);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(true);
+  const [confirmedData, setConfirmedData] = useState<VolunteerSlipData | null>(null);
+  const [showSlipModal, setShowSlipModal] = useState<boolean>(false);
+  const [showStatusLookup, setShowStatusLookup] = useState<boolean>(false);
+
+  // Check campaign gate status on mount
+  useEffect(() => {
+    async function checkCampaignStatus() {
+      try {
+        const res = await fetch("/api/stats", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.isRegistrationOpen === "boolean") {
+            setIsRegistrationOpen(data.isRegistrationOpen);
+          }
+        }
+      } catch (err) {
+        console.warn("Could not check campaign status", err);
+      }
+    }
+    checkCampaignStatus();
+  }, []);
 
   const {
     register,
@@ -47,6 +68,7 @@ export function RegistrationSection() {
     trigger,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<RegistrationData>({
     resolver: zodResolver(registrationSchema),
@@ -59,7 +81,7 @@ export function RegistrationSection() {
       ugPg: "UG",
       program: "B.Tech",
       department: "",
-      year: "1",
+      year: "2",
       section: "",
       interests: [],
       previousExperience: "",
@@ -68,7 +90,19 @@ export function RegistrationSection() {
     },
   });
 
+  const selectedUgPg = watch("ugPg");
   const selectedInterests = watch("interests") || [];
+
+  // Update default year when switching between UG and PG
+  useEffect(() => {
+    if (selectedUgPg === "UG") {
+      setValue("year", "2");
+      setValue("program", "B.Tech");
+    } else {
+      setValue("year", "1");
+      setValue("program", "MCA");
+    }
+  }, [selectedUgPg, setValue]);
 
   // Validate Step 1 before allowing advance to Step 2
   const handleContinueToStepTwo = async () => {
@@ -120,6 +154,10 @@ export function RegistrationSection() {
           setIsDuplicate(true);
           throw new Error(result.error || "This student is already registered.");
         }
+        if (response.status === 403 || result.closed) {
+          setIsRegistrationOpen(false);
+          throw new Error(result.error || "Registrations are currently closed.");
+        }
         throw new Error(result.error || "Submission failed. Please try again.");
       }
 
@@ -127,7 +165,16 @@ export function RegistrationSection() {
         registrationId: result.registrationId,
         fullName: data.fullName,
         rollNumber: data.rollNumber.toUpperCase(),
+        email: data.email,
+        phone: data.phone,
+        program: data.program,
         department: data.department.toUpperCase(),
+        year: data.year,
+        section: data.section || "",
+        ugPg: data.ugPg,
+        interests: data.interests,
+        createdAt: new Date().toISOString(),
+        status: "Registered / Under Review",
       });
       setSubmitStatus("success");
     } catch (err: any) {
@@ -137,7 +184,21 @@ export function RegistrationSection() {
   };
 
   const handleResetForm = () => {
-    reset();
+    reset({
+      fullName: "",
+      rollNumber: "",
+      email: "",
+      phone: "",
+      ugPg: "UG",
+      program: "B.Tech",
+      department: "",
+      year: "2",
+      section: "",
+      interests: [],
+      previousExperience: "",
+      motivation: "",
+      consent: false as any,
+    });
     setCurrentStep(1);
     setSubmitStatus("idle");
     setErrorMessage("");
@@ -153,7 +214,7 @@ export function RegistrationSection() {
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-gold font-semibold mb-3">
             <span>SECTION 06</span>
             <span className="w-4 h-px bg-gold" aria-hidden="true" />
@@ -167,15 +228,51 @@ export function RegistrationSection() {
             Your Journey Starts Here.
           </h2>
 
-          <p className="text-base sm:text-lg text-charcoal/80 leading-relaxed font-normal">
-            Take the first step towards becoming an NSS volunteer.
+          <p className="text-base sm:text-lg text-charcoal/80 leading-relaxed font-normal mb-5">
+            Take the first step towards joining the dedicated cohort of 100 NSS student volunteers.
           </p>
+
+          {/* Quick Status Lookup Banner Button */}
+          <div className="inline-flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowStatusLookup(true)}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white text-forest border border-forest/30 hover:bg-forest hover:text-white transition-colors text-xs font-bold uppercase tracking-wider shadow-2xs cursor-pointer"
+            >
+              <Search size={14} />
+              <span>Already Registered? Check Status &bull; Find Slip</span>
+            </button>
+          </div>
         </div>
 
         {/* Multi-Step Form Container */}
         <div className="bg-white border border-forest/15 rounded-xs p-6 sm:p-10 shadow-sm relative">
-          {submitStatus === "success" && confirmedData ? (
-            /* Refined Confirmation State */
+          {/* A. If Campaign is Closed */}
+          {!isRegistrationOpen && submitStatus !== "success" ? (
+            <div className="py-10 text-center animate-in fade-in duration-300">
+              <div className="w-14 h-14 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center mx-auto mb-4 border border-amber-300 shadow-2xs">
+                <AlertCircle size={28} />
+              </div>
+              <div className="text-xs font-mono uppercase tracking-widest text-gold font-bold mb-2">
+                COHORT 2026 REGISTRATION NOTICE
+              </div>
+              <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-forest mb-3">
+                Recruitment Currently Paused / Concluded
+              </h3>
+              <p className="text-sm text-charcoal/80 max-w-lg mx-auto mb-6 leading-relaxed">
+                New volunteer registrations are temporarily paused by the VIIT NSS administration as the campaign quota has been attained. If you have already applied, you can verify your application status and reprint your voucher below.
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowStatusLookup(true)}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-forest text-white text-xs font-bold uppercase tracking-widest hover:bg-forest-light transition-colors shadow-xs cursor-pointer"
+              >
+                <Search size={14} />
+                <span>Check My Application Status</span>
+              </button>
+            </div>
+          ) : submitStatus === "success" && confirmedData ? (
+            /* B. Successful Registration Confirmation */
             <div className="py-8 sm:py-12 flex flex-col items-center text-center animate-in fade-in duration-300">
               <div className="w-16 h-16 rounded-full bg-forest text-white flex items-center justify-center mb-6 shadow-xs">
                 <CheckCircle2 size={36} strokeWidth={2} />
@@ -190,11 +287,11 @@ export function RegistrationSection() {
               </h3>
 
               <p className="text-base text-charcoal/80 max-w-lg mb-8">
-                Your registration has been submitted successfully to the Vignan&apos;s Institute of Information Technology NSS Volunteer records.
+                Your volunteer registration has been recorded in the official Vignan&apos;s Institute of Information Technology NSS database.
               </p>
 
               {/* Official Confirmation Card */}
-              <div className="w-full max-w-md p-6 bg-ivory border border-forest/20 rounded-xs text-left mb-8 shadow-2xs space-y-3">
+              <div className="w-full max-w-md p-6 bg-ivory border-2 border-forest/20 rounded-xs text-left mb-8 shadow-2xs space-y-3">
                 <div className="flex items-center justify-between pb-3 border-b border-forest/15">
                   <span className="text-xs font-mono uppercase tracking-wider text-charcoal/60">
                     Registration ID
@@ -211,31 +308,43 @@ export function RegistrationSection() {
 
                 <div className="flex items-center justify-between text-xs text-charcoal/80">
                   <span>Roll Number:</span>
-                  <span className="font-semibold text-charcoal">{confirmedData.rollNumber}</span>
+                  <span className="font-semibold text-charcoal font-mono uppercase">{confirmedData.rollNumber}</span>
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-charcoal/80">
-                  <span>Department:</span>
-                  <span className="font-semibold text-charcoal">{confirmedData.department}</span>
+                  <span>Department &amp; Year:</span>
+                  <span className="font-semibold text-charcoal">{confirmedData.department} &bull; Year {confirmedData.year}</span>
                 </div>
 
                 <div className="pt-3 border-t border-forest/15 text-[11px] text-charcoal/70 flex items-start gap-2">
                   <ShieldCheck size={14} className="text-forest shrink-0 mt-0.5" />
                   <span>
-                    Keep your Registration ID for your records. An orientation briefing schedule will be communicated to your submitted email.
+                    Download or print your official voucher slip below. Bring it with your student ID card to the upcoming orientation briefing.
                   </span>
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={handleResetForm}
-                className="px-6 py-2.5 bg-ivory hover:bg-ivory-dark text-forest font-bold text-xs uppercase tracking-widest border border-forest/30 transition-colors"
-              >
-                Register Another Volunteer
-              </button>
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowSlipModal(true)}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-forest text-white hover:bg-forest-light font-bold text-xs uppercase tracking-widest transition-colors shadow-xs cursor-pointer"
+                >
+                  <Printer size={15} />
+                  <span>Download / Print Official Voucher</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleResetForm}
+                  className="w-full sm:w-auto px-6 py-3 bg-white hover:bg-ivory text-charcoal/80 font-bold text-xs uppercase tracking-widest border border-forest/20 transition-colors cursor-pointer"
+                >
+                  Register Another Student
+                </button>
+              </div>
             </div>
           ) : (
+            /* C. Multi-Step Form */
             <div>
               {/* Visible Two-Step Progress Bar */}
               <div className="mb-10 pb-6 border-b border-forest/10">
@@ -243,9 +352,7 @@ export function RegistrationSection() {
                   <div className="flex items-center gap-2">
                     <span
                       className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                        currentStep === 1
-                          ? "bg-forest text-white"
-                          : "bg-forest text-white"
+                        currentStep === 1 ? "bg-forest text-white" : "bg-forest text-white"
                       }`}
                     >
                       1
@@ -305,9 +412,15 @@ export function RegistrationSection() {
                       {isDuplicate ? "Duplicate Registration Detected" : "Submission Notice"}
                     </p>
                     <p className="text-xs leading-relaxed">{errorMessage}</p>
-                    <p className="text-[11px] opacity-75 mt-1">
-                      Your entered form information has been preserved. Please verify details before resubmitting.
-                    </p>
+                    {isDuplicate && (
+                      <button
+                        type="button"
+                        onClick={() => setShowStatusLookup(true)}
+                        className="mt-2 text-xs font-bold text-forest underline cursor-pointer"
+                      >
+                        Click here to lookup and print your existing voucher &rarr;
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
@@ -354,7 +467,7 @@ export function RegistrationSection() {
                           type="text"
                           {...register("rollNumber")}
                           placeholder="e.g. 22L31A0501"
-                          className="w-full px-3.5 py-2.5 bg-ivory/50 border border-forest/20 text-charcoal text-sm uppercase rounded-none focus:bg-white transition-colors"
+                          className="w-full px-3.5 py-2.5 bg-ivory/50 border border-forest/20 text-charcoal text-sm uppercase rounded-none focus:bg-white transition-colors font-mono"
                           aria-invalid={errors.rollNumber ? "true" : "false"}
                         />
                         {errors.rollNumber && (
@@ -392,7 +505,7 @@ export function RegistrationSection() {
                           type="tel"
                           {...register("phone")}
                           placeholder="10-digit mobile number"
-                          className="w-full px-3.5 py-2.5 bg-ivory/50 border border-forest/20 text-charcoal text-sm rounded-none focus:bg-white transition-colors"
+                          className="w-full px-3.5 py-2.5 bg-ivory/50 border border-forest/20 text-charcoal text-sm rounded-none focus:bg-white transition-colors font-mono"
                           aria-invalid={errors.phone ? "true" : "false"}
                         />
                         {errors.phone && (
@@ -402,10 +515,10 @@ export function RegistrationSection() {
                         )}
                       </div>
 
-                      {/* UG / PG Radio Selection */}
+                      {/* UG / PG Radio Selection with Policy Note */}
                       <div className="space-y-1.5">
                         <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
-                          Category (UG / PG) <span className="text-red-600">*</span>
+                          Program Category <span className="text-red-600">*</span>
                         </label>
                         <div className="flex items-center gap-6 pt-2">
                           <label className="inline-flex items-center gap-2 cursor-pointer text-sm font-medium">
@@ -427,6 +540,11 @@ export function RegistrationSection() {
                             <span>Postgraduate (PG)</span>
                           </label>
                         </div>
+                        <p className="text-[11px] text-charcoal/60 mt-1">
+                          {selectedUgPg === "UG"
+                            ? "UG Eligibility: 2nd & 3rd Year students (All Branches)"
+                            : "PG Eligibility: 1st & 2nd Year students (MCA & MBA)"}
+                        </p>
                         {errors.ugPg && (
                           <p className="text-red-600 text-xs mt-1">
                             {errors.ugPg.message}
@@ -442,7 +560,7 @@ export function RegistrationSection() {
                         <input
                           type="text"
                           {...register("program")}
-                          placeholder="e.g. B.Tech, M.Tech, MBA, MCA"
+                          placeholder={selectedUgPg === "UG" ? "e.g. B.Tech" : "e.g. MCA, MBA"}
                           className="w-full px-3.5 py-2.5 bg-ivory/50 border border-forest/20 text-charcoal text-sm rounded-none focus:bg-white transition-colors"
                           aria-invalid={errors.program ? "true" : "false"}
                         />
@@ -462,7 +580,7 @@ export function RegistrationSection() {
                           type="text"
                           {...register("department")}
                           placeholder="e.g. CSE, ECE, EEE, MECH, CIVIL, IT, AI&DS"
-                          className="w-full px-3.5 py-2.5 bg-ivory/50 border border-forest/20 text-charcoal text-sm uppercase rounded-none focus:bg-white transition-colors"
+                          className="w-full px-3.5 py-2.5 bg-ivory/50 border border-forest/20 text-charcoal text-sm uppercase rounded-none focus:bg-white transition-colors font-mono"
                           aria-invalid={errors.department ? "true" : "false"}
                         />
                         {errors.department && (
@@ -472,7 +590,7 @@ export function RegistrationSection() {
                         )}
                       </div>
 
-                      {/* Academic Year */}
+                      {/* Academic Year (Strictly Filtered to College Eligibility) */}
                       <div className="space-y-1.5">
                         <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
                           Academic Year <span className="text-red-600">*</span>
@@ -482,11 +600,23 @@ export function RegistrationSection() {
                           className="w-full px-3.5 py-2.5 bg-ivory/50 border border-forest/20 text-charcoal text-sm rounded-none focus:bg-white transition-colors"
                           aria-invalid={errors.year ? "true" : "false"}
                         >
-                          <option value="1">1st Year</option>
-                          <option value="2">2nd Year</option>
-                          <option value="3">3rd Year</option>
-                          <option value="4">4th Year</option>
+                          {selectedUgPg === "UG" ? (
+                            <>
+                              <option value="2">2nd Year (Eligible)</option>
+                              <option value="3">3rd Year (Eligible)</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="1">1st Year (Eligible)</option>
+                              <option value="2">2nd Year (Eligible)</option>
+                            </>
+                          )}
                         </select>
+                        <span className="text-[10px] text-charcoal/60 block font-mono">
+                          {selectedUgPg === "UG"
+                            ? "Excludes 1st yr (foundational) & 4th yr (placements)"
+                            : "Applicable for 2-year Master programs (MCA / MBA)"}
+                        </span>
                         {errors.year && (
                           <p className="text-red-600 text-xs mt-1">
                             {errors.year.message}
@@ -513,7 +643,7 @@ export function RegistrationSection() {
                       <button
                         type="button"
                         onClick={handleContinueToStepTwo}
-                        className="inline-flex items-center gap-2 px-7 py-3 bg-forest text-white font-bold text-xs uppercase tracking-widest hover:bg-forest-light transition-colors border border-forest active:translate-y-px"
+                        className="inline-flex items-center gap-2 px-7 py-3 bg-forest text-white font-bold text-xs uppercase tracking-widest hover:bg-forest-light transition-colors border border-forest active:translate-y-px cursor-pointer"
                       >
                         <span>Continue to Step 2</span>
                         <ArrowRight size={15} aria-hidden="true" />
@@ -635,7 +765,7 @@ export function RegistrationSection() {
                       <button
                         type="button"
                         onClick={handleBackToStepOne}
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 bg-white text-charcoal hover:bg-ivory font-bold text-xs uppercase tracking-widest border border-forest/20 transition-colors"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 bg-white text-charcoal hover:bg-ivory font-bold text-xs uppercase tracking-widest border border-forest/20 transition-colors cursor-pointer"
                       >
                         <ArrowLeft size={14} aria-hidden="true" />
                         <span>Back to Student Details</span>
@@ -644,7 +774,7 @@ export function RegistrationSection() {
                       <button
                         type="submit"
                         disabled={submitStatus === "submitting"}
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-forest text-white hover:bg-forest-light disabled:opacity-60 disabled:cursor-not-allowed font-bold text-xs uppercase tracking-widest border border-forest transition-all shadow-xs"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-forest text-white hover:bg-forest-light disabled:opacity-60 disabled:cursor-not-allowed font-bold text-xs uppercase tracking-widest border border-forest transition-all shadow-xs cursor-pointer"
                       >
                         {submitStatus === "submitting" ? (
                           <>
@@ -666,6 +796,20 @@ export function RegistrationSection() {
           )}
         </div>
       </div>
+
+      {/* Status Lookup Modal */}
+      <StatusLookupModal
+        isOpen={showStatusLookup}
+        onClose={() => setShowStatusLookup(false)}
+      />
+
+      {/* Slip Print Modal on Success */}
+      {showSlipModal && confirmedData && (
+        <RegistrationSlip
+          volunteer={confirmedData}
+          onClose={() => setShowSlipModal(false)}
+        />
+      )}
     </section>
   );
 }

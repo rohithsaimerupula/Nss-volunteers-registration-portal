@@ -8,6 +8,7 @@ import { AboutSection } from "@/sections/AboutSection";
 import { ActivitiesSection } from "@/sections/ActivitiesSection";
 import { WhyJoinSection } from "@/sections/WhyJoinSection";
 import { TargetSection } from "@/sections/TargetSection";
+import { FaqSection } from "@/sections/FaqSection";
 import { RegistrationSection } from "@/sections/RegistrationSection";
 
 export default function Home() {
@@ -47,7 +48,10 @@ export default function Home() {
         {/* SECTION F — VOLUNTEER TARGET */}
         <TargetSection />
 
-        {/* SECTION G — REGISTRATION */}
+        {/* SECTION G — FREQUENTLY ASKED QUESTIONS */}
+        <FaqSection />
+
+        {/* SECTION H — REGISTRATION */}
         <RegistrationSection />
       </motion.div>
     </>

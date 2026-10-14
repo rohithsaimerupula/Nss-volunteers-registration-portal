@@ -71,7 +71,28 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Generate Official Registration Identifier
+    // 3. Verify Campaign Registration Gate
+    try {
+      const settingResult = await turso.execute(
+        "SELECT value FROM campaign_settings WHERE key = 'is_registration_open' LIMIT 1"
+      );
+      if (settingResult.rows.length > 0) {
+        const val = String(settingResult.rows[0]?.value);
+        if (val === "0" || val === "false") {
+          return NextResponse.json(
+            {
+              error: "Volunteer registrations are currently closed or paused by the administrator.",
+              closed: true,
+            },
+            { status: 403 }
+          );
+        }
+      }
+    } catch {
+      // Proceed if settings table not accessible
+    }
+
+    // 4. Generate Official Registration Identifier
     const yearSuffix = new Date().getFullYear();
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const registrationId = `NSS-SETU-${yearSuffix}-${randomSuffix}`;
@@ -82,8 +103,8 @@ export async function POST(request: Request) {
         sql: `INSERT INTO volunteers (
           id, registration_id, full_name, roll_number, email, phone, 
           program, department, year, section, ug_pg, interests, 
-          previous_experience, motivation, consent
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          previous_experience, motivation, consent, status
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         args: [
           internalId,
           registrationId,
@@ -100,6 +121,7 @@ export async function POST(request: Request) {
           data.previousExperience ? data.previousExperience.trim() : null,
           data.motivation ? data.motivation.trim() : "",
           data.consent ? 1 : 0,
+          "Pending",
         ],
       });
 
