@@ -15,7 +15,7 @@ export function ViitLogoBadge({ compact = false }: { compact?: boolean }) {
       }`}
       title="Vignan's Institute of Information Technology (Autonomous)"
     >
-      <div className={`relative shrink-0 rounded-full overflow-hidden bg-white p-0.5 ${compact ? "w-5 h-5" : "w-6 h-6"}`}>
+      <div className={`relative shrink-0 aspect-square rounded-full overflow-hidden bg-white p-0.5 ${compact ? "w-5 h-5" : "w-6 h-6"}`}>
         <Image
           src="/viit-logo.png"
           alt="VIIT Official Emblem"
@@ -38,7 +38,7 @@ export function NssLogoBadge({ compact = false }: { compact?: boolean }) {
       }`}
       title="National Service Scheme — Official Konark Emblem"
     >
-      <div className={`relative shrink-0 rounded-full overflow-hidden bg-white p-0.5 ${compact ? "w-5 h-5" : "w-6 h-6"}`}>
+      <div className={`relative shrink-0 aspect-square rounded-full overflow-hidden bg-white p-0.5 ${compact ? "w-5 h-5" : "w-6 h-6"}`}>
         <Image
           src="/nss-logo.png"
           alt="NSS Official Emblem"
@@ -61,7 +61,7 @@ export function MyBharatLogoBadge({ compact = false }: { compact?: boolean }) {
       }`}
       title="Mera Yuva Bharat — Government of India"
     >
-      <div className={`relative shrink-0 rounded-full overflow-hidden bg-white p-0.5 ${compact ? "w-5 h-5" : "w-6 h-6"}`}>
+      <div className={`relative shrink-0 aspect-square rounded-full overflow-hidden bg-white p-0.5 ${compact ? "w-5 h-5" : "w-6 h-6"}`}>
         <Image
           src="/mybharat-logo.png"
           alt="MY BHARAT Official Emblem"

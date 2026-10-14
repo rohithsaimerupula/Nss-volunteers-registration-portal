@@ -185,7 +185,7 @@ export function NssIntroAnimation({ onComplete }: NssIntroAnimationProps) {
               >
                 {/* VIIT */}
                 <div className="flex items-center gap-1.5">
-                  <div className="relative w-5 h-5 rounded-full overflow-hidden bg-white shrink-0 p-0.5">
+                  <div className="relative w-5 h-5 aspect-square rounded-full overflow-hidden bg-white shrink-0 p-0.5">
                     <Image src="/viit-logo.png" alt="VIIT Logo" fill className="object-contain" sizes="20px" />
                   </div>
                   <span className="text-[10px] font-mono tracking-wider font-bold text-white">VIIT</span>
@@ -195,7 +195,7 @@ export function NssIntroAnimation({ onComplete }: NssIntroAnimationProps) {
 
                 {/* NSS */}
                 <div className="flex items-center gap-1.5">
-                  <div className="relative w-5 h-5 rounded-full overflow-hidden bg-white shrink-0 p-0.5">
+                  <div className="relative w-5 h-5 aspect-square rounded-full overflow-hidden bg-white shrink-0 p-0.5">
                     <Image src="/nss-logo.png" alt="NSS Logo" fill className="object-contain" sizes="20px" />
                   </div>
                   <span className="text-[10px] font-mono tracking-wider font-bold text-gold">NSS</span>
@@ -205,7 +205,7 @@ export function NssIntroAnimation({ onComplete }: NssIntroAnimationProps) {
 
                 {/* MY BHARAT */}
                 <div className="flex items-center gap-1.5">
-                  <div className="relative w-5 h-5 rounded-full overflow-hidden bg-white shrink-0 p-0.5">
+                  <div className="relative w-5 h-5 aspect-square rounded-full overflow-hidden bg-white shrink-0 p-0.5">
                     <Image src="/mybharat-logo.png" alt="MY BHARAT Logo" fill className="object-contain" sizes="20px" />
                   </div>
                   <span className="text-[10px] font-mono tracking-wider font-bold text-white">MY BHARAT</span>

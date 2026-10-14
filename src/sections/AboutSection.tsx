@@ -55,10 +55,10 @@ export function AboutSection() {
 
               <div className="flex flex-col items-center text-center">
                 {/* Official NSS Logo with Rotating Konark Gold Ring Halo */}
-                <div className="relative w-20 h-20 mb-6 flex items-center justify-center">
+                <div className="relative w-20 h-20 aspect-square shrink-0 mb-6 flex items-center justify-center">
                   <div className="absolute inset-0 rounded-full border border-gold/40 animate-spin [animation-duration:18s]" />
                   <div className="absolute inset-1.5 rounded-full border border-dashed border-forest/30 -animate-spin [animation-duration:24s]" />
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-sm border-2 border-gold/60 bg-white">
+                  <div className="relative w-16 h-16 aspect-square shrink-0 rounded-full overflow-hidden shadow-sm border-2 border-gold/60 bg-white">
                     <Image
                       src="/nss-logo.png"
                       alt="National Service Scheme Official Emblem"

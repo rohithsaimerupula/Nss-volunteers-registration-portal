@@ -66,13 +66,13 @@ export function HeroSection() {
             >
               {/* Overlapping Triple Medallions */}
               <div className="flex items-center -space-x-1.5">
-                <div className="relative w-5 h-5 rounded-full overflow-hidden border border-forest/20 bg-white z-30 shadow-2xs">
+                <div className="relative w-5 h-5 aspect-square shrink-0 rounded-full overflow-hidden border border-forest/20 bg-white z-30 shadow-2xs">
                   <Image src="/viit-logo.png" alt="VIIT Logo" fill className="object-contain p-0.5" sizes="20px" />
                 </div>
-                <div className="relative w-6 h-6 rounded-full overflow-hidden border-2 border-gold bg-white z-20 shadow-xs">
+                <div className="relative w-6 h-6 aspect-square shrink-0 rounded-full overflow-hidden border-2 border-gold bg-white z-20 shadow-xs">
                   <Image src="/nss-logo.png" alt="NSS Logo" fill className="object-contain p-0.5" sizes="24px" />
                 </div>
-                <div className="relative w-5 h-5 rounded-full overflow-hidden border border-forest/20 bg-white z-10 shadow-2xs">
+                <div className="relative w-5 h-5 aspect-square shrink-0 rounded-full overflow-hidden border border-forest/20 bg-white z-10 shadow-2xs">
                   <Image src="/mybharat-logo.png" alt="MY BHARAT Logo" fill className="object-contain p-0.5" sizes="20px" />
                 </div>
               </div>
@@ -135,7 +135,7 @@ export function HeroSection() {
                 {/* 1. VIIT */}
                 <div className="p-3 bg-ivory/70 border border-forest/15 rounded-lg hover:border-forest/40 hover:bg-white transition-all shadow-3xs group flex flex-col justify-between">
                   <div className="flex items-center gap-2.5 mb-2">
-                    <div className="relative w-8 h-8 rounded-full overflow-hidden bg-white border border-forest/20 shrink-0 shadow-2xs p-0.5 group-hover:scale-105 transition-transform">
+                    <div className="relative w-8 h-8 aspect-square shrink-0 rounded-full overflow-hidden bg-white border border-forest/20 shadow-2xs p-0.5 group-hover:scale-105 transition-transform">
                       <Image src="/viit-logo.png" alt="VIIT Logo" fill className="object-contain" sizes="32px" />
                     </div>
                     <div>
@@ -151,7 +151,7 @@ export function HeroSection() {
                 {/* 2. NSS */}
                 <div className="p-3 bg-ivory/70 border-2 border-gold/40 rounded-lg hover:border-gold hover:bg-white transition-all shadow-3xs group flex flex-col justify-between relative">
                   <div className="flex items-center gap-2.5 mb-2">
-                    <div className="relative w-9 h-9 rounded-full overflow-hidden bg-white border-2 border-gold shrink-0 shadow-2xs p-0.5 group-hover:scale-105 transition-transform">
+                    <div className="relative w-9 h-9 aspect-square shrink-0 rounded-full overflow-hidden bg-white border-2 border-gold shadow-2xs p-0.5 group-hover:scale-105 transition-transform">
                       <Image src="/nss-logo.png" alt="NSS Logo" fill className="object-contain" sizes="36px" />
                     </div>
                     <div>
@@ -167,7 +167,7 @@ export function HeroSection() {
                 {/* 3. MY BHARAT */}
                 <div className="p-3 bg-ivory/70 border border-forest/15 rounded-lg hover:border-forest/40 hover:bg-white transition-all shadow-3xs group flex flex-col justify-between">
                   <div className="flex items-center gap-2.5 mb-2">
-                    <div className="relative w-8 h-8 rounded-full overflow-hidden bg-white border border-forest/20 shrink-0 shadow-2xs p-0.5 group-hover:scale-105 transition-transform">
+                    <div className="relative w-8 h-8 aspect-square shrink-0 rounded-full overflow-hidden bg-white border border-forest/20 shadow-2xs p-0.5 group-hover:scale-105 transition-transform">
                       <Image src="/mybharat-logo.png" alt="MY BHARAT Logo" fill className="object-contain" sizes="32px" />
                     </div>
                     <div>

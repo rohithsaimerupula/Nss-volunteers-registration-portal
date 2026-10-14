@@ -68,13 +68,13 @@ export function Navbar() {
             >
               {/* Linked Official Logo Trio Seal */}
               <div className="flex items-center -space-x-2 bg-white/80 p-1 rounded-full border border-forest/20 shadow-xs group-hover:border-gold transition-colors">
-                <div className="relative w-7 h-7 rounded-full overflow-hidden border border-forest/15 bg-white p-0.5 z-30 shadow-2xs">
+                <div className="relative w-7 h-7 aspect-square shrink-0 rounded-full overflow-hidden border border-forest/15 bg-white p-0.5 z-30 shadow-2xs">
                   <Image src="/viit-logo.png" alt="VIIT Logo" fill className="object-contain" sizes="28px" />
                 </div>
-                <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-gold bg-white p-0.5 z-20 shadow-xs">
+                <div className="relative w-8 h-8 aspect-square shrink-0 rounded-full overflow-hidden border-2 border-gold bg-white p-0.5 z-20 shadow-xs">
                   <Image src="/nss-logo.png" alt="NSS Logo" fill className="object-contain" sizes="32px" />
                 </div>
-                <div className="relative w-7 h-7 rounded-full overflow-hidden border border-forest/15 bg-white p-0.5 z-10 shadow-2xs">
+                <div className="relative w-7 h-7 aspect-square shrink-0 rounded-full overflow-hidden border border-forest/15 bg-white p-0.5 z-10 shadow-2xs">
                   <Image src="/mybharat-logo.png" alt="MY BHARAT Logo" fill className="object-contain" sizes="28px" />
                 </div>
               </div>

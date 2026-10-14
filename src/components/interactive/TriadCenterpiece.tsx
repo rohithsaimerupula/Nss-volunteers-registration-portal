@@ -151,7 +151,7 @@ export function TriadCenterpiece() {
             onMouseEnter={() => setActiveIdentity("viit")}
             className="absolute left-4 sm:left-6 top-6 flex flex-col items-center cursor-pointer group"
           >
-            <div className="relative w-18 h-18 sm:w-20 sm:h-20 rounded-full p-1 bg-white border-2 border-forest/30 shadow-md group-hover:border-forest group-hover:shadow-xl transition-all duration-300">
+            <div className="relative w-[72px] h-[72px] sm:w-20 sm:h-20 aspect-square shrink-0 rounded-full p-1 bg-white border-2 border-forest/30 shadow-md group-hover:border-forest group-hover:shadow-xl transition-all duration-300">
               {/* Outer Pulse Ring */}
               <div className="absolute -inset-1 rounded-full border border-forest/20 group-hover:scale-110 transition-transform duration-300" />
               <div className="relative w-full h-full rounded-full overflow-hidden bg-white p-1">
@@ -180,7 +180,7 @@ export function TriadCenterpiece() {
             onMouseEnter={() => setActiveIdentity("mybharat")}
             className="absolute right-4 sm:right-6 top-6 flex flex-col items-center cursor-pointer group"
           >
-            <div className="relative w-18 h-18 sm:w-20 sm:h-20 rounded-full p-1 bg-white border-2 border-gold/40 shadow-md group-hover:border-gold group-hover:shadow-xl transition-all duration-300">
+            <div className="relative w-[72px] h-[72px] sm:w-20 sm:h-20 aspect-square shrink-0 rounded-full p-1 bg-white border-2 border-gold/40 shadow-md group-hover:border-gold group-hover:shadow-xl transition-all duration-300">
               {/* Outer Pulse Ring */}
               <div className="absolute -inset-1 rounded-full border border-gold/25 group-hover:scale-110 transition-transform duration-300" />
               <div className="relative w-full h-full rounded-full overflow-hidden bg-white p-1">
@@ -210,7 +210,7 @@ export function TriadCenterpiece() {
             className="absolute bottom-2 sm:bottom-4 flex flex-col items-center cursor-pointer group"
           >
             {/* Spinning Konark Spoke Ring */}
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 aspect-square shrink-0 flex items-center justify-center">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
@@ -223,7 +223,7 @@ export function TriadCenterpiece() {
               />
 
               {/* Main Official NSS Emblem in Gold Casing */}
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-white border-3 border-gold shadow-[0_10px_30px_rgba(198,166,107,0.4)] p-1 group-hover:scale-105 transition-transform duration-300">
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 aspect-square shrink-0 rounded-full overflow-hidden bg-white border-3 border-gold shadow-[0_10px_30px_rgba(198,166,107,0.4)] p-1 group-hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/nss-logo.png"
                   alt="NSS Official Emblem"
