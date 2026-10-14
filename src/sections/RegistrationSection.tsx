@@ -319,7 +319,7 @@ export function RegistrationSection() {
                 <div className="pt-3 border-t border-forest/15 text-[11px] text-charcoal/70 flex items-start gap-2">
                   <ShieldCheck size={14} className="text-forest shrink-0 mt-0.5" />
                   <span>
-                    Download or print your official voucher slip below. Bring it with your student ID card to the upcoming orientation briefing.
+                    Download or print your official voucher slip below. Your department NSS Joint Secretary (JS) will contact you directly regarding selection and orientation.
                   </span>
                 </div>
               </div>

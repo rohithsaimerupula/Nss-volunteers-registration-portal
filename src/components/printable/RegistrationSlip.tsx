@@ -344,6 +344,9 @@ function VoucherContent({
         <p>
           3. <strong>Certification Standard:</strong> The prestigious NSS University Certificate requires completion of 120 annual service hours and active participation in the annual 7-day Special Rural Camp.
         </p>
+        <p>
+          4. <strong>Selection &amp; Orientation:</strong> Your department&apos;s NSS Joint Secretary (JS) will contact you directly regarding selection confirmation and orientation schedule.
+        </p>
       </div>
 
       {/* Signatures & Institutional Seal Block */}

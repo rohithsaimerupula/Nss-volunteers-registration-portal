@@ -40,11 +40,11 @@ const faqs: FaqItem[] = [
     highlight: "positive",
   },
   {
-    question: "How will I know if my application has been selected for the 100 cohort?",
+    question: "How will I know if I'm selected?",
     answer:
-      "You can verify your real-time application status anytime using our 'Check Application Status' lookup tool above by entering your Roll Number. Shortlisted and selected students will also receive official orientation call letters at their registered college email addresses.",
-    badge: "Real-Time Tracking",
-    highlight: "neutral",
+      "No need to wait for email letters; your department's NSS Joint Secretary (JS) will contact you directly regarding your selection and the orientation schedule.",
+    badge: "Department NSS JS Contact",
+    highlight: "positive",
   },
 ];
 
